@@ -3,7 +3,7 @@ Bài tập về nhà cuộc đua kì thú Android Khoa Phạm
 
 Đây là demo mình làm app Food RecyclerView của lớp Android Khoa Phạm.
 
-![image](D:\Study\KhoaPhamAndroid\08.05.2020\Git\RacingGame\photo\demo.gif)
+![image](https://github.com/anhoang241998/RacingGame/blob/master/photo/demo.gif?raw=true)
 
 ### Features
 
