@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Racing Game</string>
+    <string name="btn_play">Play</string>
+    <string name="countDown_number">1</string>
+    <string name="tv_result">You Win!!!</string>
+    <string name="btn_playAgain">Play again</string>
+    <string name="btn_exit">Exit?</string>
+</resources>
