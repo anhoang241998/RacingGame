@@ -32,6 +32,8 @@ public class RacingActivity extends AppCompatActivity implements OnListenerClick
     private OnListenerClickCheckbox mOnListenerClickCheckbox;
     private int mCountDownNumber;
 
+    private int mCarWin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,77 +151,59 @@ public class RacingActivity extends AppCompatActivity implements OnListenerClick
             @SuppressLint("SetTextI18n")
             @Override
             public void onFinish() {
-                if (mSeekBar1.getProgress() >= 100 || mSeekBar2.getProgress() >= 100 || mSeekBar3.getProgress() >= 100) {
-                    this.cancel();
-                    if (mCheckBox1.isChecked() && mSeekBar1.getProgress() == 100) {
-                        mResultImage.setImageResource(R.drawable.ic_winner_cup);
-                        mTvResult.setText("You Win!!!");
-                        mDialog.show();
-                        playAgain();
-                        exitApp();
-                        mCheckBox1.setEnabled(true);
-                        mCheckBox2.setEnabled(true);
-                        mCheckBox3.setEnabled(true);
-                        Toast.makeText(RacingActivity.this, "First Car Win", Toast.LENGTH_SHORT).show();
-                    } else{
-                        mResultImage.setImageResource(R.drawable.ic_game_over);
-                        mTvResult.setText("You Lost!!!");
-                        mDialog.show();
-                        playAgain();
-                        exitApp();
-                        mCheckBox1.setEnabled(true);
-                        mCheckBox2.setEnabled(true);
-                        mCheckBox3.setEnabled(true);
-                        Toast.makeText(RacingActivity.this, "First Car Win", Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (mCheckBox2.isChecked() && mSeekBar2.getProgress() == 100) {
-                        mResultImage.setImageResource(R.drawable.ic_winner_cup);
-                        mTvResult.setText("You Win!!!");
-                        mDialog.show();
-                        playAgain();
-                        exitApp();
-                        mCheckBox1.setEnabled(true);
-                        mCheckBox2.setEnabled(true);
-                        mCheckBox3.setEnabled(true);
-                        Toast.makeText(RacingActivity.this, "Second Car Win", Toast.LENGTH_SHORT).show();
-                    } else {
-                        mResultImage.setImageResource(R.drawable.ic_game_over);
-                        mTvResult.setText("You Lost!!!");
-                        mDialog.show();
-                        playAgain();
-                        exitApp();
-                        mCheckBox1.setEnabled(true);
-                        mCheckBox2.setEnabled(true);
-                        mCheckBox3.setEnabled(true);
-                        Toast.makeText(RacingActivity.this, "Second Car Win", Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (mCheckBox3.isChecked() && mSeekBar3.getProgress() == 100) {
-                        mResultImage.setImageResource(R.drawable.ic_winner_cup);
-                        mTvResult.setText("You Win!!!");
-                        mDialog.show();
-                        playAgain();
-                        exitApp();
-                        mCheckBox1.setEnabled(true);
-                        mCheckBox2.setEnabled(true);
-                        mCheckBox3.setEnabled(true);
-                        Toast.makeText(RacingActivity.this, "Third Car Win", Toast.LENGTH_SHORT).show();
-                    } else {
-                        mResultImage.setImageResource(R.drawable.ic_game_over);
-                        mTvResult.setText("You Lost!!!");
-                        mDialog.show();
-                        playAgain();
-                        exitApp();
-                        mCheckBox1.setEnabled(true);
-                        mCheckBox2.setEnabled(true);
-                        mCheckBox3.setEnabled(true);
-                        Toast.makeText(RacingActivity.this, "Third Car Win", Toast.LENGTH_SHORT).show();
-                    }
-
+                if (mSeekBar1.getProgress() < 100 && mSeekBar2.getProgress() < 100 && mSeekBar3.getProgress() < 100) {
+                    mCountDownTimer.start();
                     return;
                 }
-                this.start();
+
+                this.cancel();
+
+                mCheckBox1.setEnabled(true);
+                mCheckBox2.setEnabled(true);
+                mCheckBox3.setEnabled(true);
+
+                if (mCheckBox1.isChecked() && mSeekBar1.getProgress() >= 100) {
+                    mResultImage.setImageResource(R.drawable.ic_winner_cup);
+                    mTvResult.setText("You Win!!!");
+                    mDialog.show();
+                } else if (mCheckBox2.isChecked() && mSeekBar2.getProgress() >= 100) {
+                    mResultImage.setImageResource(R.drawable.ic_winner_cup);
+                    mTvResult.setText("You Win!!!");
+                    mDialog.show();
+                } else if (mCheckBox3.isChecked() && mSeekBar3.getProgress() >= 100) {
+                    mResultImage.setImageResource(R.drawable.ic_winner_cup);
+                    mTvResult.setText("You Win!!!");
+                    mDialog.show();
+                } else {
+                    mResultImage.setImageResource(R.drawable.ic_game_over);
+                    mTvResult.setText("You Lost!!!");
+                    mDialog.show();
+
+                    String mCarWinString;
+
+                    switch (mCarWin) {
+                        case 0:
+                            mCarWinString = "First Car Win";
+                            break;
+
+                        case 1:
+                            mCarWinString = "Second Car Win";
+                            break;
+
+                        case 2:
+                            mCarWinString = "Third Car Win";
+                            break;
+
+                        default:
+                            mCarWinString = "Error";
+                            break;
+                    }
+
+                    Toast.makeText(RacingActivity.this, mCarWinString, Toast.LENGTH_SHORT).show();
+                }
+
+                playAgain();
+                exitApp();
             }
         };
 
